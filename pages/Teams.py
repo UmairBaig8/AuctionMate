@@ -7,6 +7,9 @@ from common.utils import apply_global_styles
 
 st.set_page_config(page_title="Teams", page_icon="👥", layout="wide")
 
+from streamlit_autorefresh import st_autorefresh
+st_autorefresh(interval=2 * 1000, key="live_refresh")  # Refresh every 10s  
+
 st.title("👥 Teams")
 st.write("Manage teams and view player details.")
 
