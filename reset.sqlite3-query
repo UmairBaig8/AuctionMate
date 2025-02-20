@@ -1,0 +1,9 @@
+-- database: ./auction.db
+
+DELETE FROM players;
+
+DELETE FROM teams;
+
+DELETE FROM current_player;
+
+UPDATE teams set budget = 1000, spend = 0, player_count = 2, male_count = 2, female_count = 0
