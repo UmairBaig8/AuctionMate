@@ -57,20 +57,22 @@ def show_user(col):
             """,
             unsafe_allow_html=True
         )
-        st.markdown("<br>", unsafe_allow_html=True)
         
-        _sold, _unsold = st.columns(2)
-        with _sold:
-            if st.button("Sold", key="sold", type="primary", use_container_width=True):
-                #st.balloons()
-                db.mark_player_sold(player=player, team=current_player['bidding_team'], bid_amount=current_player['current_bid'])
-                db.clear_current_player()
-                st.rerun()
-        with _unsold:
-            if st.button("Unsold", key="unsold", type="secondary", use_container_width=True):
-                db.mark_player_unsold(player=player)
-                db.clear_current_player()
-                st.rerun()
+        if st.session_state["role"] == "admin":
+            st.markdown("<br>", unsafe_allow_html=True)
+            
+            _sold, _unsold = st.columns(2)
+            with _sold:
+                if st.button("Sold", key="sold", type="primary", use_container_width=True):
+                    #st.balloons()
+                    db.mark_player_sold(player=player, team=current_player['bidding_team'], bid_amount=current_player['current_bid'])
+                    db.clear_current_player()
+                    st.rerun()
+            with _unsold:
+                if st.button("Unsold", key="unsold", type="secondary", use_container_width=True):
+                    db.mark_player_unsold(player=player)
+                    db.clear_current_player()
+                    st.rerun()
 
 def show_team(col):
 
@@ -274,36 +276,38 @@ if __name__ == "__main__":
     
     show_team(detailsCol)
     
-    with st.expander("Bidding box"):
-        # 💡 Arrange Teams into 2 Rows (5 per row)
-        
-        teams = db.get_teams()
-        rows = [teams[:5], teams[5:]]
-
-        st.title("🏏 Team Actions Panel")
-        st.success(f"Current Bid: {  current_player['current_bid']}, Team: {current_player['bidding_team']}")
-                        
-        current_bid = st.number_input(label="Custom bid", value=current_player['current_bid'])
-                        
-        # Create 10 columns for 10 teams
-        cols = st.columns(10)  # 🟦 10 Buttons in a Single Row
-
-        next_bid = current_bid + (5 if current_bid < 50 else 10)
-
-        # Iterate through all teams and place each button in its column
-        for idx, team in enumerate(teams):
-            with cols[idx]:
-                if st.button(label=team['team_name']):
-                    current_bid += 5  # Increment Bid by 5
-                    current_team = team['team_name']
-                    
-                    # 💸 Place the bid in the database
-                    db.place_bid(player_name=current_player['player_name'], bidder=current_team, bid_amount=current_bid)
-                    
-                    # 🔄 Fetch updated player info
-                    current_player = db.get_current_player()
-
-                        
+    if st.session_state["role"] == "admin":
     
-    if st.button("Auto"):
-        auto()
+        with st.expander("Bidding box"):
+            # 💡 Arrange Teams into 2 Rows (5 per row)
+            
+            teams = db.get_teams()
+            rows = [teams[:5], teams[5:]]
+
+            st.title("🏏 Team Actions Panel")
+            st.success(f"Current Bid: {  current_player['current_bid']}, Team: {current_player['bidding_team']}")
+                            
+            current_bid = st.number_input(label="Custom bid", value=current_player['current_bid'])
+                            
+            # Create 10 columns for 10 teams
+            cols = st.columns(10)  # 🟦 10 Buttons in a Single Row
+
+            next_bid = current_bid + (5 if current_bid < 50 else 10)
+
+            # Iterate through all teams and place each button in its column
+            for idx, team in enumerate(teams):
+                with cols[idx]:
+                    if st.button(label=team['team_name']):
+                        current_bid += 5  # Increment Bid by 5
+                        current_team = team['team_name']
+                        
+                        # 💸 Place the bid in the database
+                        db.place_bid(player_name=current_player['player_name'], bidder=current_team, bid_amount=current_bid)
+                        
+                        # 🔄 Fetch updated player info
+                        current_player = db.get_current_player()
+
+                            
+        
+        if st.button("Auto"):
+            auto()
