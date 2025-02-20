@@ -100,7 +100,7 @@ class DBHelper:
     # Menu items
     def generate_menu_items(self):
         menu_items = [
-            ("./static/Asset 2.svg", "Live", "app.py", 1,),
+            ("./static/Asset 2.svg", "Live", "./pages/Live.py", 1,),
             ("./static/Asset 3.svg", "Auction", "./pages/Auction.py", 2,),
             ("./static/Asset 4.svg", "Matches", "./pages/Matches.py", 3,),
             ("./static/Asset 5.svg", "Point Table", "./pages/Point_Table.py", 4,),
