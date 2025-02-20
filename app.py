@@ -11,7 +11,6 @@ def main():
     db.init_db() 
     
     apply_global_styles()
-    st.image("./static/Auction begin.png")
     
 if __name__ == "__main__":
     main()
