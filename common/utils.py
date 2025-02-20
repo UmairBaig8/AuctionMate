@@ -15,6 +15,15 @@ def get_to_base64(svg_path, type:str):
 
 def apply_global_styles():
     """Applies custom global styles to all pages."""
+    
+    # Initialize session state
+    if "authenticated" not in st.session_state:
+        st.session_state["authenticated"] = False
+        st.session_state["username"] = ""
+        st.session_state["role"] = ""
+        st.switch_page("app.py")
+    
+    
     css = f"""
     <style>
         [data-testid="stHeader"]{{
@@ -198,10 +207,25 @@ def apply_global_styles():
     if len(menu_items) < 4:
         db.generate_menu_items()
         menu_items = db.get_menu_items()
+        
+    # Role-based Menu Filtering
+    if st.session_state["role"] == "admin":
+        filtered_menu = menu_items  # Admin gets all pages
+    else:
+        # Guests get only Live, Teams, and Players
+        # Filter for guest users (only Live, Teams, and Player)
+        filtered_menu = [item for item in menu_items if item["label"] in ["Live", "Teams", "Player"]]
 
-    for item in menu_items:
+    for item in filtered_menu:
         col1, col2 = st.sidebar.columns([1, 4])
         col1.image(item["icon"], use_container_width=True)
         col2.page_link(item["page"], label=item["label"])
     
     st.sidebar.divider()
+    
+    
+    if st.sidebar.button(label="Logout", key="logout",type="tertiary"):
+        st.session_state["authenticated"] = False
+        st.session_state["username"] = ""
+        st.session_state["role"] = ""
+        st.switch_page("app.py")
