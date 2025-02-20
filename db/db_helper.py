@@ -205,7 +205,7 @@ class DBHelper:
             c = conn.cursor()
             c.execute("DELETE FROM current_player")  # Clear previous auction data
             c.execute("INSERT INTO current_player (player_id, player_name, base_price, current_bid) VALUES (?, ?, ?, ?)",
-                    (player['email'], player['name'], 20, 20))  # Storing player ID for reference
+                    (player['name'], player['name'], 20, 20))  # Storing player ID for reference
             conn.commit()
             conn.close()
         return player
