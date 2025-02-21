@@ -63,7 +63,7 @@ def login():
         st.session_state["authenticated"] = True
         st.session_state["username"] = "Guest"
         st.session_state["role"] = "guest"
-        apply_global_styles()
+        #apply_global_styles()
         st.switch_page("pages/Live.py")
 
     # Login Form
@@ -77,7 +77,7 @@ def login():
             st.session_state["username"] = username
             st.session_state["role"] = USER_CREDENTIALS[username]["role"]
             st.success(f"Welcome, {username}!")
-            apply_global_styles()
+            #apply_global_styles()
             st.switch_page("pages/Live.py")
         else:
             st.error("Invalid username or password")
