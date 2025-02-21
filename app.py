@@ -47,7 +47,7 @@ st.markdown(
 def login():
     
     # Centered layout
-    st.markdown('<div class="login-container">', unsafe_allow_html=True)
+    #st.markdown('<div class="login-container">', unsafe_allow_html=True)
 
     # Guest Button (Above Login)
     if st.button("🎟️ Continue as Guest", key="guest", use_container_width=True):
@@ -74,7 +74,7 @@ def login():
             st.error("Invalid username or password")
 
     # Close container div
-    st.markdown('</div>', unsafe_allow_html=True)
+    #st.markdown('</div>', unsafe_allow_html=True)
 
     # # Login Page
     # st.title("DPL Login")
