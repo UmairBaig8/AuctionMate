@@ -69,38 +69,42 @@ class DBHelper:
         conn.commit()
         conn.close()
         
-    # Data loader
-    def load_data(self, file_path):
-        import pandas as pd
+   # Data loader
+    def load_data(self, df, type: str):
+        # Drop 'Unnamed: 0' if it exists
+        if 'Unnamed: 0' in df.columns:
+            df.drop(columns=['Unnamed: 0'], inplace=True)
 
-        # Load Excel data
-        df = pd.read_excel(file_path)
+        if type == 'xl':
+            # Full header from Excel
+            df.columns = [
+                "id", "start_time", "completion_time", "email", "name", "available",
+                "work_location", "previously_played", "wish_to_be", "player_category",
+                "rating", "gender"
+            ]
 
-        # Full header from Excel
-        df.columns = [
-            "id", "start_time", "completion_time", "email", "name", "available",
-            "work_location", "previously_played", "wish_to_be", "player_category",
-            "rating", "gender"
-        ]
+            # Keep only columns needed for DB
+            df = df[[
+                "id", "name", "available", "work_location", "previously_played", 
+                "wish_to_be", "player_category", "rating", "gender"
+            ]]
 
-        # Keep only columns needed for DB (and rename where necessary)
-        df = df[["id", "name", "available", "work_location", "previously_played", "wish_to_be", "player_category", "rating", "gender"]]
-
-        # Add missing columns for DB schema
-        df["team"] = None
-        df["price"] = 0
-        df["status"] = "available"  # Set default status
+            # Add missing columns for DB schema
+            df["team"] = None
+            df["price"] = 0
+            df["status"] = "available"
 
         # Connect to DB and insert
         conn = self.get_db_connection()
         df.to_sql("players", conn, if_exists="append", index=False)
         conn.commit()
         conn.close()
+
         
     # Menu items
     def generate_menu_items(self):
         menu_items = [
-            ("./static/Asset 2.svg", "Live", "./pages/Live.py", 1,),
+            ("./static/Asset 2.svg", "Live", "app.py", 1,),
             ("./static/Asset 3.svg", "Auction", "./pages/Auction.py", 2,),
             ("./static/Asset 4.svg", "Matches", "./pages/Matches.py", 3,),
             ("./static/Asset 5.svg", "Point Table", "./pages/Point_Table.py", 4,),
@@ -205,7 +209,7 @@ class DBHelper:
             c = conn.cursor()
             c.execute("DELETE FROM current_player")  # Clear previous auction data
             c.execute("INSERT INTO current_player (player_id, player_name, base_price, current_bid) VALUES (?, ?, ?, ?)",
-                    (player['name'], player['name'], 20, 20))  # Storing player ID for reference
+                    (player['email'], player['name'], 20, 20))  # Storing player ID for reference
             conn.commit()
             conn.close()
         return player
