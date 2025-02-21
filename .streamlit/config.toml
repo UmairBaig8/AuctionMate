@@ -1,0 +1,7 @@
+[theme]
+base="light"
+primaryColor = "#F25697"  # Tomato red
+backgroundColor = "#2C39CA"  # Light gray
+secondaryBackgroundColor = "#F25697"  # Sidebar color (Dark gray) 2C39CA
+textColor = "#FFFFFF"  # White text
+font="sans serif"
