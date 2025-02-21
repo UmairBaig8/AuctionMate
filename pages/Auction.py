@@ -298,7 +298,7 @@ if __name__ == "__main__":
             for idx, team in enumerate(teams):
                 with cols[idx]:
                     if st.button(label=team['team_name']):
-                        current_bid += 5  # Increment Bid by 5
+                        current_bid = current_bid + (5 if current_bid < 50 else 10)
                         current_team = team['team_name']
                         
                         # 💸 Place the bid in the database
