@@ -11,10 +11,11 @@ USER_CREDENTIALS = {
     "admin": {"password": "admin123", "role": "admin"},
     "user1": {"password": "user123", "role": "user"},
 }
-
 st.markdown(
     """
     <style>
+    #GithubIcon { visibility: hiddeGithubIconn;}
+    
         [data-testid="stSidebar"] {{
                 display: none;
             }}
