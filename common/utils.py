@@ -218,12 +218,13 @@ def apply_global_styles():
         # Filter for guest users (only Live, Teams, and Player)
         filtered_menu = [item for item in menu_items if item["label"] in ["Live", "Teams", "Player"]]
 
-    for item in filtered_menu:
-        col1, col2 = st.sidebar.columns([1, 4])
-        col1.image(item["icon"], use_container_width=True)
-        col2.page_link(item["page"], label=item["label"])
+    if st.session_state["authenticated"]:
+        for item in filtered_menu:
+            col1, col2 = st.sidebar.columns([1, 4])
+            col1.image(item["icon"], use_container_width=True)
+            col2.page_link(item["page"], label=item["label"])
     
-    st.sidebar.divider()
+        st.sidebar.divider()
     
     
     if st.sidebar.button(label="Logout", key="logout",type="tertiary"):
