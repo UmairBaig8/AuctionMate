@@ -227,8 +227,8 @@ def apply_global_styles():
         st.sidebar.divider()
     
     
-    if st.sidebar.button(label="Logout", key="logout",type="tertiary"):
-        st.session_state["authenticated"] = False
-        st.session_state["username"] = ""
-        st.session_state["role"] = ""
-        st.switch_page("app.py")
+        if st.sidebar.button(label="Logout", key="logout",type="tertiary"):
+            st.session_state["authenticated"] = False
+            st.session_state["username"] = ""
+            st.session_state["role"] = ""
+            st.switch_page("app.py")
