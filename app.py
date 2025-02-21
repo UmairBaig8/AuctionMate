@@ -17,7 +17,13 @@ st.markdown(
     """
     <style>
     #GithubIcon { visibility: hiddeGithubIconn;}
-    
+
+
+    [data-testid="stSidebarNav"] {{ display: none; }}  /* Hide Sidebar Navigation */
+        [data-testid="stSidebar"] {{
+            min-width: 10px;
+            max-width: 20x;
+        }}
         [data-testid="stSidebar"] {{
                 display: none;
             }}
