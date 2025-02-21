@@ -53,7 +53,6 @@ def login():
         st.session_state["authenticated"] = True
         st.session_state["username"] = "Guest"
         st.session_state["role"] = "guest"
-        st.success("Logged in as Guest")
         apply_global_styles()
         st.switch_page("pages/Live.py")
 
