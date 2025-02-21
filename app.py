@@ -107,6 +107,7 @@ def login():
 def main():
     db = DBHelper()
     db.init_db() 
+    apply_global_styles()
     
     # Initialize session state
     if "authenticated" not in st.session_state:
