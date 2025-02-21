@@ -27,7 +27,8 @@ st.markdown(
             width: 100%;
         }
         .login-container {
-            width: 350px;
+            width: 450px;
+            height: 400px;
             margin: auto;
             padding: 2rem;
             border-radius: 10px;
