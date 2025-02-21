@@ -197,14 +197,16 @@ def apply_global_styles():
     
     st.logo("./static/Group 40174.png")
     st.sidebar.image("./static/Group 40174@2x.png")
-    st.sidebar.divider()
+
+    if st.session_state["authenticated"]:    
+        st.sidebar.divider()
 
     db = DBHelper()
 
     # 🚀 Streamlit Sidebar Rendering
     menu_items = db.get_menu_items()
     
-    if len(menu_items) < 4:
+    if st.session_state["authenticated"] and len(menu_items) < 4:
         db.generate_menu_items()
         menu_items = db.get_menu_items()
         
