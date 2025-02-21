@@ -6,11 +6,13 @@ from db.db_helper import DBHelper
 
 st.set_page_config(page_title="Live Dashboard", page_icon="⚡", layout="wide")
 
+#Load credentials from secrets
+USER_CREDENTIALS = st.secrets["USER_CREDENTIALS"]
 # Dummy user database with roles
-USER_CREDENTIALS = {
-    "admin": {"password": "admin123", "role": "admin"},
-    "user1": {"password": "user123", "role": "user"},
-}
+#USER_CREDENTIALS = {
+#    "admin": {"password": "admin123", "role": "admin"},
+#    "user1": {"password": "user123", "role": "user"},
+#}
 st.markdown(
     """
     <style>
