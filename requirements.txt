@@ -47,7 +47,7 @@ paramiko==3.5.1
 pillow==11.1.0
 plotly==6.0.0
 prometheus_client==0.21.1
-protobuf==5.29.3
+protobuf==5.29.6
 pyarrow==19.0.0
 pycparser==2.22
 pydeck==0.9.1
